@@ -24,8 +24,8 @@ const mockTodos = [
 ] 
 
 const App = (): JSX.Element => {
-  const [todos, setTodos] = useState(mockTodos) // inicializar la lista de todos con mockTodos, setTodos actualiza la lista de todos
-  const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) // el filtro por defecto es 'all', setFilterSelected actualiza el filtro seleccionado
+  const [todos, setTodos] = useState(mockTodos) 
+  const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) 
 
   const activeCount = todos.filter(todo => !todo.completed).length
   const completedCount = todos.length - activeCount
