@@ -1,6 +1,7 @@
 import React from "react"
 import { type FilterValue } from "../types"
 import { Filters } from "./Filters"
+import { FooterText } from "./FooterText" 
 
 interface Props {
     activeCount: number
@@ -38,6 +39,8 @@ export const Footer: React.FC<Props> = ({
                     </button>
                 )
             }
+
+            <FooterText></FooterText>
         </footer>
     )
 }
