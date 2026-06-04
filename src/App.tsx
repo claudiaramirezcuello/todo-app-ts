@@ -85,7 +85,10 @@ const App = (): JSX.Element => {
 
   return (
     <div className="todoapp">
-      <Header onAddTodo={handleAddTodo} />
+      <Header 
+        onAddTodo={handleAddTodo} 
+        userName={userName} 
+      />
       <Todos 
         onToggleCompleteTodo={handleCompleted}
         onRemoveTodo={handleRemove}
