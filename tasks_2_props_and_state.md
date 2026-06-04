@@ -20,7 +20,11 @@ En estas tareas, también quiero que cada vez que acabes una repitas estos coman
 
 `git push`
 
-### Tarea 7: Componente con Props
+### Tarea 7: Estilos
+
+Genera espacio vertical entre el Subtitle y el contenido y entre el FootterText y el contenido para que no se vean tan pegados.
+
+### Tarea 8: Componente con Props
 
 Modifica tu componente `Subtitle.tsx` para que no tenga el texto quemado (hardcoded). Debe recibir una `prop` llamada `text` de tipo `string`.
 Actualiza `Header.tsx` para pasarle a `Subtitle` el texto "Lista de tareas pendientes" a través de esa prop.
@@ -45,17 +49,17 @@ export function ComponentExample(props: PropsComponentExample) {
 };
 ```
 
-### Tarea 8: Añadiendo un nuevo estado global
+### Tarea 9: Añadiendo un nuevo estado global
 
 En `App.tsx`, usa `useState` para crear un nuevo estado llamado `userName`. Inicialízalo con tu propio nombre.
 
-### Tarea 9: Pasando el estado como prop
+### Tarea 10: Pasando el estado como prop
 
 Modifica el componente `Header` para que acepte una nueva prop `userName` (recuerda actualizar la `interface Props` en `Header.tsx`).
 En `App.tsx`, pásale el estado `userName` al `Header`.
 En `Header.tsx`, haz que el título muestre el nombre del usuario, por ejemplo: "Tareas de Clàudia".
 
-### Tarea 10: Componente reutilizable (Button)
+### Tarea 11: Componente reutilizable (Button)
 
 Crea un componente genérico `Button.tsx` en la carpeta `components`.
 Debe recibir como props:
@@ -75,12 +79,12 @@ interface Props {
 }
 ```
 
-### Tarea 11: Usar tu nuevo botón
+### Tarea 12: Usar tu nuevo botón
 
 Ve a `Footer.tsx`. Busca el `<button className='clear-completed'>` que usas para borrar las completadas.
 Reemplaza esa etiqueta HTML `<button>` por tu nuevo componente `<Button>`, pasándole las props correspondientes.
 
-### Tarea 12: Usar el botón en otro sitio con diferentes props
+### Tarea 13: Usar el botón en otro sitio con diferentes props
 
 Dentro de `App.tsx`, dibuja un nuevo botón, usando tu componente Button, en un lugar que veas apropiado, por ejemplo debajo del título principal.
 Dale el texto "Click me" y haz que, al hacer clic, muestre un mensaje de alerta "Me has clicado" en la pantalla.
