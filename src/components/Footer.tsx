@@ -1,46 +1,41 @@
-import React from "react"
-import { type FilterValue } from "../types"
-import { Filters } from "./Filters"
-import { FooterText } from "./FooterText" 
+import React from "react";
+import { type FilterValue } from "../types";
+import { Filters } from "./Filters";
+import { FooterText } from "./FooterText";
 
 interface Props {
-    activeCount: number
-    completedCount: number
-    filterSelected: FilterValue
-    onClearCompleted: () => void
-    handleFilterChange: (filter: FilterValue) => void
+  activeCount: number;
+  completedCount: number;
+  filterSelected: FilterValue;
+  onClearCompleted: () => void;
+  handleFilterChange: (filter: FilterValue) => void;
 }
 
-export const Footer: React.FC<Props> = ({ 
-    activeCount = 0, 
-    completedCount = 0,
-    filterSelected,
-    handleFilterChange,
-    onClearCompleted
+export const Footer: React.FC<Props> = ({
+  activeCount = 0,
+  completedCount = 0,
+  filterSelected,
+  handleFilterChange,
+  onClearCompleted,
 }) => {
-    return ( 
-        <footer className="footer">
-            <span className="todo-count">
-                <strong>{activeCount}</strong> tareas pendientes
-            </span> 
+  return (
+    <footer className="footer">
+      <span className="todo-count">
+        <strong>{activeCount}</strong> tareas pendientes
+      </span>
 
-            <Filters 
-                filterSelected={filterSelected}
-                onFilterChange={handleFilterChange}
-            />
+      <Filters
+        filterSelected={filterSelected}
+        onFilterChange={handleFilterChange}
+      />
 
-            {
-                completedCount > 0 && (
-                    <button 
-                    className = 'clear-completed'
-                    onClick={onClearCompleted}
-                    >
-                        Borrar completadas
-                    </button>
-                )
-            }
+      {completedCount > 0 && (
+        <button className="clear-completed" onClick={onClearCompleted}>
+          Borrar completadas
+        </button>
+      )}
 
-            <FooterText></FooterText>
-        </footer>
-    )
-}
+      <FooterText />
+    </footer>
+  );
+};
