@@ -1,5 +1,13 @@
 import React from "react"
 
-export const Subtitle: React.FC = () => {
-    return <h2 className="subtitle">Lista de tareas de hoy</h2>
+interface PropsSubtitle {
+    text: string;
 }
+
+export function Subtitle(props: PropsSubtitle) {
+    return <h2 className="subtitle">{props.text}</h2>
+}
+
+/*export const Subtitle: React.FC<PropsSubtitle> = ({ text }) => {
+    return <h2 className="subtitle">{text}</h2>
+}*/
