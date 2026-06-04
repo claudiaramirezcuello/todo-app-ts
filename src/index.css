@@ -1,4 +1,11 @@
 .subtitle {
     background-color: #555;
-    text-align: center;
+    color: white;
+    height: 60px;
+    margin: auto auto;
+    font-size: 2em;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
 }

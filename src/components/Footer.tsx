@@ -40,7 +40,7 @@ export const Footer: React.FC<Props> = ({
                 )
             }
 
-            <FooterText></FooterText>
+            <FooterText/>
         </footer>
     )
 }
