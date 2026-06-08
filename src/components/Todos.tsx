@@ -6,10 +6,10 @@ interface Props {
     todos: ListOfTodos
     onToggleCompleteTodo: ({ id, completed }: Pick<TodoType, 'id' | 'completed'>) => void
     onRemoveTodo: ({ id }: TodoId) => void
-    onEditTodo: ({ id }: TodoId) => void
+    //xonEditTodo: ({ id }: TodoId) => void
 }
 
-export const Todos: React.FC<Props> = ({ todos, onRemoveTodo, onToggleCompleteTodo, onEditTodo }) => {
+export const Todos: React.FC<Props> = ({ todos, onRemoveTodo, onToggleCompleteTodo/*, onEditTodo */}) => {
     return (
         <ul className='todo-list'> 
             {todos.map(todo => (
@@ -23,7 +23,7 @@ export const Todos: React.FC<Props> = ({ todos, onRemoveTodo, onToggleCompleteTo
                         completed={todo.completed}
                         onToggleCompleteTodo={onToggleCompleteTodo}
                         onRemoveTodo={onRemoveTodo}
-                        onEditTodo={onEditTodo}
+                        //onEditTodo={onEditTodo}
                     />
                 </li>
             ))}
