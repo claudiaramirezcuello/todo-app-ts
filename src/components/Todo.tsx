@@ -10,7 +10,6 @@ interface Props extends TodoType {
 
 export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo, onToggleCompleteTodo, onUpdateTitle}) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [editedTitle, setEditedTitle] = useState(title)
     
     const handleChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>): void => {
         onToggleCompleteTodo({ 
@@ -28,32 +27,16 @@ export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo, onTo
                 onChange={handleChangeCheckbox} 
             />
             {isEditing ? (
-                /*<input 
+                <input 
                     type="text" 
-                    value={title} 
+                    defaultValue={title} // con value no me dejaba editar el texto
                     onKeyDown={(event):void => {
                         if (event.key === 'Enter') {
-                            onUpdateTitle({ id, newTitle: event.currentTarget.value })
+                            onUpdateTitle({ id, newTitle: event.currentTarget.value }) 
                             setIsEditing(false)
                         }
                     }}
-                />*/
-                <input
-                    type="text"
-                    value={editedTitle}
-                    onChange={(event) => {
-                        setEditedTitle(event.target.value)
-                    }}
-                    onKeyDown={(event) => {
-                        if (event.key === 'Enter') {
-                            onUpdateTitle({
-                                id,
-                                newTitle: editedTitle
-                            })
-                            setIsEditing(false)
-                        }
-                    }}
-                g/>
+                />
             ) : (<label>{title}</label>
             )}
             <Button
