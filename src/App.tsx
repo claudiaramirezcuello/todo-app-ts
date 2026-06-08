@@ -4,6 +4,7 @@ import { TodoTitle, type FilterValue, type TodoId, type Todo as TodoType } from 
 import { TODO_FILTERS } from './consts';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { Button } from './components/Button';
 
 const mockTodos = [
   {
@@ -83,12 +84,22 @@ const App = (): JSX.Element => {
     setFilterSelected(filter)
   }
 
+  const handleClick = () => {
+    alert("Me has clicado");  
+  };
+
+
   return (
     <div className="todoapp">
       <Header 
         onAddTodo={handleAddTodo} 
         userName={userName} 
       />
+      <Button
+        onClick={handleClick}
+        text='Click me'
+        className='myButton'
+      ></Button>
       <Todos 
         onToggleCompleteTodo={handleCompleted}
         onRemoveTodo={handleRemove}

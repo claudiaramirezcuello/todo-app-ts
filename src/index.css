@@ -9,3 +9,18 @@
     justify-content: center; 
     align-items: center;    
 }
+
+.myButton {
+    background-color:#b83f45;
+    color: white;
+    margin: 10px auto;
+    padding: 0.5em 0.5em;
+    font-size: 1.5em;
+
+    border-style: hidden;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
