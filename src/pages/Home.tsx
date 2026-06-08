@@ -1,4 +1,4 @@
-import React, { JSX, useState } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import { Todos } from '../components/Todos';
 import { TodoTitle, type FilterValue, type TodoId, type Todo as TodoType } from '../types';
 import { TODO_FILTERS } from '../consts';
@@ -48,12 +48,14 @@ const Home = (): JSX.Element => {
 
     const newTodos = [...todos, newTodo] 
     setTodos(newTodos)
+    saveTodos();
   }
 
   // eliminar un todo
   const handleRemove = ({ id }: TodoId): void => {
     const newTodos = todos.filter(todo => todo.id != id) // filtramos los que no tienen el id a eliminar
     setTodos(newTodos) // actualizamos la lista 
+    saveTodos();
   }
 
   // marcar un todo como completado o no completado
@@ -71,12 +73,14 @@ const Home = (): JSX.Element => {
     })
 
     setTodos(newTodos) // actualizamos la lista 
+    saveTodos();
   }
 
   // eliminar todos los todos completados
   const handleRemoveAllCompleted = (): void => {
     const newTodos = todos.filter(todo => !todo.completed)
     setTodos(newTodos)
+    saveTodos();
   }
 
   // cambiar el filtro seleccionado
@@ -88,13 +92,20 @@ const Home = (): JSX.Element => {
     alert("Me has clicado");  
   }
 
-
   // he tenido que poner id como un string porque sino me daba problemas con el tipo 
   const handleUpdateTitle = ({id, newTitle }: { id: string; newTitle: string }): void => {
     const updatedTodos = todos.map(todo => 
       todo.id === id ? { ...todo, title: newTitle } : todo
     )
     setTodos(updatedTodos) 
+    saveTodos();
+  }
+
+  // guardar todos en LocalStorage
+  const saveTodos = () : void => {
+    useEffect(() => {
+        localStorage.setItem("myTodos", JSON.stringify(todos));
+    }, [todos]);
   }
 
   return (
