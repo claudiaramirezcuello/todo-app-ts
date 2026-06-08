@@ -2,6 +2,7 @@ import React from "react"
 import { type FilterValue } from "../types"
 import { Filters } from "./Filters"
 import { FooterText } from "./FooterText" 
+import { Button } from "./Button"
 
 interface Props {
     activeCount: number
@@ -31,12 +32,11 @@ export const Footer: React.FC<Props> = ({
 
             {
                 completedCount > 0 && (
-                    <button 
-                    className = 'clear-completed'
-                    onClick={onClearCompleted}
-                    >
-                        Borrar completadas
-                    </button>
+                    <Button 
+                        className = 'clear-completed'
+                        onClick={onClearCompleted}
+                        text="Borrar completadas"
+                    />
                 )
             }
 
