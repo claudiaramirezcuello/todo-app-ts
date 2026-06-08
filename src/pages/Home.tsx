@@ -88,6 +88,9 @@ const Home = (): JSX.Element => {
     alert("Me has clicado");  
   };
 
+  const onEditTodo = ({ id }: TodoId): void => {
+    console.log("Editando el todo con id: ", id);
+  };
 
   return (
     <div className="todoapp">
@@ -104,6 +107,7 @@ const Home = (): JSX.Element => {
         onToggleCompleteTodo={handleCompleted}
         onRemoveTodo={handleRemove}
         todos={filteredTodos} 
+        onEditTodo={onEditTodo}
       />
       <Footer
         activeCount={activeCount}

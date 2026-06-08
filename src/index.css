@@ -24,3 +24,15 @@
     justify-content: center; 
     align-items: center;
 }
+
+.editButton {
+    display: block;
+	position: absolute;
+	top: 0;
+	right: 50px;
+	bottom: 0;
+	width: 40px;
+	height: 40px;
+	margin: auto 0;
+	font-size: 20px;
+}
