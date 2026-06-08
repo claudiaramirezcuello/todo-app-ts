@@ -29,6 +29,21 @@ const Home = (): JSX.Element => {
   const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) // el filtro por defecto es 'all', setFilterSelected actualiza el filtro seleccionado
   const [userName] = useState('Clàudia')
 
+  // inicializar la lista de todos
+  const initializeTodos = () : void => {
+    useEffect(() => {
+        const storedTodos = localStorage.getItem("myTodos");
+        console.log("stored todos: ",storedTodos);
+        if (storedTodos) {
+            setTodos(JSON.parse(storedTodos));
+        } else {
+            setTodos(mockTodos);
+        }
+    }, []);
+  }
+
+  initializeTodos();
+
   const activeCount = todos.filter(todo => !todo.completed).length
   const completedCount = todos.length - activeCount
   
