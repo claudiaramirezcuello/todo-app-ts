@@ -86,11 +86,14 @@ const Home = (): JSX.Element => {
 
   const handleClick = () => {
     alert("Me has clicado");  
-  };
+  }
 
-  /*const onEditTodo = ({ id }: TodoId): void => {
-    console.log("Editando el todo con id: ", id);
-  };*/
+  const handleUpdateTitle = ({id, newTitle }: { id: string; newTitle: string }): void => {
+    const updatedTodos = todos.map(todo => 
+      todo.id === id ? { ...todo, title: newTitle } : todo
+    )
+    setTodos(updatedTodos) // actualizamos la lista 
+  }
 
   return (
     <div className="todoapp">
@@ -107,7 +110,7 @@ const Home = (): JSX.Element => {
         onToggleCompleteTodo={handleCompleted}
         onRemoveTodo={handleRemove}
         todos={filteredTodos} 
-        //onEditTodo={onEditTodo}
+        onUpdateTitle={handleUpdateTitle}
       />
       <Footer
         activeCount={activeCount}
