@@ -5,7 +5,7 @@ import { Button } from "./Button";
 interface Props extends TodoType {
     onToggleCompleteTodo: ({ id, completed }: Pick<TodoType, 'id' | 'completed'>) => void
     onRemoveTodo: ({ id }: TodoId) => void
-    onUpdateTitle: ({id, newTitle }: { id: string; newTitle: string }) => void
+    onUpdateTitle: ({id, newTitle }: { id: string; newTitle: string }) => void 
 }
 
 export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo, onToggleCompleteTodo, onUpdateTitle}) => {
@@ -29,10 +29,10 @@ export const Todo: React.FC<Props> = ({ id, title, completed, onRemoveTodo, onTo
             {isEditing ? (
                 <input 
                     type="text" 
-                    defaultValue={title} // con value no me dejaba editar el texto
+                    defaultValue={title} // he cambiado value por defaultValue para así permitir la modificación del título
                     onKeyDown={(event):void => {
                         if (event.key === 'Enter') {
-                            onUpdateTitle({ id, newTitle: event.currentTarget.value }) 
+                            onUpdateTitle({ id, newTitle: event.currentTarget.value }) // he cambiado target por currentTarget
                             setIsEditing(false)
                         }
                     }}

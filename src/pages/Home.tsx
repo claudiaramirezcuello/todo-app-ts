@@ -88,11 +88,13 @@ const Home = (): JSX.Element => {
     alert("Me has clicado");  
   }
 
+
+  // he tenido que poner id como un string porque sino me daba problemas con el tipo 
   const handleUpdateTitle = ({id, newTitle }: { id: string; newTitle: string }): void => {
     const updatedTodos = todos.map(todo => 
       todo.id === id ? { ...todo, title: newTitle } : todo
     )
-    setTodos(updatedTodos) // actualizamos la lista 
+    setTodos(updatedTodos) 
   }
 
   return (
