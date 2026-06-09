@@ -7,42 +7,37 @@ import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 
 const mockTodos = [
-  {
-    id: '1',
-    title: 'todo 1',
-    completed: true,
-  },
-  {
-    id: '2',
-    title: 'todo 2',
-    completed: false,
-  },
-  {
-    id: '3',
-    title: 'todo 3',
-    completed: false,
-  }
+    {
+        id: '1',
+        title: 'todo 1',
+        completed: true,
+    },
+    {
+        id: '2',
+        title: 'todo 2',
+        completed: false,
+    },
+    {
+        id: '3',
+        title: 'todo 3',
+        completed: false,
+    }
 ] 
 
 const Home = (): JSX.Element => {
-  const [todos, setTodos] = useState(mockTodos) // inicializar la lista de todos con mockTodos, setTodos actualiza la lista de todos
+  const [todos, setTodos] = useState(mockTodos) 
   const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) // el filtro por defecto es 'all', setFilterSelected actualiza el filtro seleccionado
   const [userName] = useState('Clàudia')
 
-  // inicializar la lista de todos
-  const initializeTodos = () : void => {
-    useEffect(() => {
+  useEffect(() => {
         const storedTodos = localStorage.getItem("myTodos");
-        console.log("stored todos: ",storedTodos);
-        if (storedTodos) {
-            setTodos(JSON.parse(storedTodos));
-        } else {
-            setTodos(mockTodos);
-        }
+        
+        if (storedTodos) setTodos(JSON.parse(storedTodos));
     }, []);
-  }
 
-  initializeTodos();
+    useEffect(() => {
+  localStorage.setItem("myTodos", JSON.stringify(todos));
+}, [todos]);
 
   const activeCount = todos.filter(todo => !todo.completed).length
   const completedCount = todos.length - activeCount
@@ -63,14 +58,12 @@ const Home = (): JSX.Element => {
 
     const newTodos = [...todos, newTodo] 
     setTodos(newTodos)
-    saveTodos();
   }
 
   // eliminar un todo
   const handleRemove = ({ id }: TodoId): void => {
     const newTodos = todos.filter(todo => todo.id != id) // filtramos los que no tienen el id a eliminar
     setTodos(newTodos) // actualizamos la lista 
-    saveTodos();
   }
 
   // marcar un todo como completado o no completado
@@ -88,14 +81,12 @@ const Home = (): JSX.Element => {
     })
 
     setTodos(newTodos) // actualizamos la lista 
-    saveTodos();
   }
 
   // eliminar todos los todos completados
   const handleRemoveAllCompleted = (): void => {
     const newTodos = todos.filter(todo => !todo.completed)
     setTodos(newTodos)
-    saveTodos();
   }
 
   // cambiar el filtro seleccionado
@@ -113,14 +104,6 @@ const Home = (): JSX.Element => {
       todo.id === id ? { ...todo, title: newTitle } : todo
     )
     setTodos(updatedTodos) 
-    saveTodos();
-  }
-
-  // guardar todos en LocalStorage
-  const saveTodos = () : void => {
-    useEffect(() => {
-        localStorage.setItem("myTodos", JSON.stringify(todos));
-    }, [todos]);
   }
 
   return (
