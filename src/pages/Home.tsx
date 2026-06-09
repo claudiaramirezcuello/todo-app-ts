@@ -25,113 +25,116 @@ const mockTodos = [
 ] 
 
 const Home = (): JSX.Element => {
-  const [todos, setTodos] = useState(mockTodos) 
-  const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) // el filtro por defecto es 'all', setFilterSelected actualiza el filtro seleccionado
-  const [userName] = useState('Clàudia')
+    const [todos, setTodos] = useState(mockTodos) 
+    const [filterSelected, setFilterSelected] = useState<FilterValue>(TODO_FILTERS.ALL) // el filtro por defecto es 'all', setFilterSelected actualiza el filtro seleccionado
+    const [userName] = useState('Clàudia')
 
-  useEffect(() => {
+    useEffect(() => {
         const storedTodos = localStorage.getItem("myTodos");
-        
+        console.log(storedTodos);
         if (storedTodos) setTodos(JSON.parse(storedTodos));
     }, []);
 
     useEffect(() => {
-  localStorage.setItem("myTodos", JSON.stringify(todos));
-}, [todos]);
+        localStorage.setItem("myTodos", JSON.stringify(todos));
+    }, [todos]);
 
-  const activeCount = todos.filter(todo => !todo.completed).length
-  const completedCount = todos.length - activeCount
+    const activeCount = todos.filter(todo => !todo.completed).length
+    const completedCount = todos.length - activeCount
   
-  const filteredTodos = todos.filter(todo => {
-    if (filterSelected === TODO_FILTERS.ACTIVE) return !todo.completed
-    if (filterSelected === TODO_FILTERS.COMPLETED) return todo.completed
-    return todo
-  })
-
-  // añadir un nuevo todo
-  const handleAddTodo = ({ title }: TodoTitle): void => {
-    const newTodo = {
-      title,
-      id: crypto.randomUUID(), // generar un id único para el nuevo todo
-      completed: false
-    }
-
-    const newTodos = [...todos, newTodo] 
-    setTodos(newTodos)
-  }
-
-  // eliminar un todo
-  const handleRemove = ({ id }: TodoId): void => {
-    const newTodos = todos.filter(todo => todo.id != id) // filtramos los que no tienen el id a eliminar
-    setTodos(newTodos) // actualizamos la lista 
-  }
-
-  // marcar un todo como completado o no completado
-  const handleCompleted = (
-    { id, completed }: Pick<TodoType, 'id' | 'completed'>
-  ): void => {
-    const newTodos = todos.map(todo => {
-      if (todo.id === id) { 
-        return {
-          ...todo, // hacemos una copia del todo
-          completed // cambiamos el valor de completed  
-        }
-      }
-      return todo
+    const filteredTodos = todos.filter(todo => {
+        if (filterSelected === TODO_FILTERS.ACTIVE) return !todo.completed
+        if (filterSelected === TODO_FILTERS.COMPLETED) return todo.completed
+        return todo
     })
 
-    setTodos(newTodos) // actualizamos la lista 
-  }
+    // añadir un nuevo todo
+    const handleAddTodo = ({ title }: TodoTitle): void => {
+        const newTodo = {
+            title,
+            id: crypto.randomUUID(), // generar un id único para el nuevo todo
+            completed: false
+        }
 
-  // eliminar todos los todos completados
-  const handleRemoveAllCompleted = (): void => {
-    const newTodos = todos.filter(todo => !todo.completed)
-    setTodos(newTodos)
-  }
+        const newTodos = [...todos, newTodo] 
+        setTodos(newTodos)
+    }
 
-  // cambiar el filtro seleccionado
-  const handleFilterChange = (filter: FilterValue): void => {
-    setFilterSelected(filter)
-  }
+    // eliminar un todo
+    const handleRemove = ({ id }: TodoId): void => {
+        const newTodos = todos.filter(todo => todo.id != id) // filtramos los que no tienen el id a eliminar
+        setTodos(newTodos) // actualizamos la lista 
+    }
 
-  const handleClick = () => {
-    alert("Me has clicado");  
-  }
+    // marcar un todo como completado o no completado
+    const handleCompleted = (
+        { id, completed }: Pick<TodoType, 'id' | 'completed'>
+    ): void => {
+        const newTodos = todos.map(todo => {
+            if (todo.id === id) { 
+                return {
+                ...todo, // hacemos una copia del todo
+                completed // cambiamos el valor de completed  
+                }
+            }
+            return todo
+        })
 
-  // he tenido que poner id como un string porque sino me daba problemas con el tipo 
-  const handleUpdateTitle = ({id, newTitle }: { id: string; newTitle: string }): void => {
-    const updatedTodos = todos.map(todo => 
-      todo.id === id ? { ...todo, title: newTitle } : todo
-    )
-    setTodos(updatedTodos) 
-  }
+        setTodos(newTodos) // actualizamos la lista 
+    }
 
-  return (
-    <div className="todoapp">
-      <Header 
-        onAddTodo={handleAddTodo} 
-        userName={userName} 
-      />
-      <Button
-        onClick={handleClick}
-        text='Click me'
-        className='myButton'
-      ></Button>
-      <Todos 
-        onToggleCompleteTodo={handleCompleted}
-        onRemoveTodo={handleRemove}
-        todos={filteredTodos} 
-        onUpdateTitle={handleUpdateTitle}
-      />
-      <Footer
-        activeCount={activeCount}
-        completedCount={completedCount}
-        filterSelected={filterSelected}
-        onClearCompleted={handleRemoveAllCompleted}
-        handleFilterChange={handleFilterChange}
-      />
-    </div>
-  ) 
+    // eliminar todos los todos completados
+    const handleRemoveAllCompleted = (): void => {
+        const newTodos = todos.filter(todo => !todo.completed)
+
+        const confirmed = window.confirm("¿Estás seguro de querer borrar todas las tareas completadas?");
+        if (confirmed) return setTodos(newTodos); 
+        else return;
+    }
+
+    // cambiar el filtro seleccionado
+    const handleFilterChange = (filter: FilterValue): void => {
+        setFilterSelected(filter)
+    }
+
+    const handleClick = () => {
+        alert("Me has clicado");  
+    }
+
+    // he tenido que poner id como un string porque sino me daba problemas con el tipo 
+    const handleUpdateTitle = ({id, newTitle }: { id: string; newTitle: string }): void => {
+        const updatedTodos = todos.map(todo => 
+            todo.id === id ? { ...todo, title: newTitle } : todo
+        )
+        setTodos(updatedTodos) 
+    }
+
+    return (
+        <div className="todoapp">
+            <Header 
+                onAddTodo={handleAddTodo} 
+                userName={userName} 
+            />
+            <Button
+                onClick={handleClick}
+                text='Click me'
+                className='myButton'
+            ></Button>
+            <Todos 
+                onToggleCompleteTodo={handleCompleted}
+                onRemoveTodo={handleRemove}
+                todos={filteredTodos} 
+                onUpdateTitle={handleUpdateTitle}
+            />
+            <Footer
+                activeCount={activeCount}
+                completedCount={completedCount}
+                filterSelected={filterSelected}
+                onClearCompleted={handleRemoveAllCompleted}
+                handleFilterChange={handleFilterChange}
+            />
+        </div>
+    ) 
 }
 
 export default Home
